@@ -27,23 +27,65 @@ describe Fyber::Parameterization::Base do
   end
 
   describe '#generate' do
-    let(:timestamp) { '1312553361' }
-    let(:string) { 'appid=157&device_id=2b6f0cc904d137be2e1730235f5664094b83&ip=109.235.143.113&locale=de&offer_types=112&page=6&ps_time=1312211903&pub0=my_campaign&timestamp=1312553361&uid=efreesen&b07a12df7d52e6c118e5d47d3f9e60135b109a1f' }
-    let(:result_string) { "#{string}&hashkey=01c3c27304a2ccca73e85bd23fa2023844c81243" }
-
     subject { instance.generate }
 
-    before do
-      allow(instance).to receive(:timestamp).and_return(timestamp)
+    context 'when all parameters are present' do
+      let(:timestamp) { '1312553361' }
+      let(:string) { 'appid=157&device_id=2b6f0cc904d137be2e1730235f5664094b83&ip=109.235.143.113&locale=de&offer_types=112&page=6&ps_time=1312211903&pub0=my_campaign&timestamp=1312553361&uid=efreesen&b07a12df7d52e6c118e5d47d3f9e60135b109a1f' }
+      let(:result_string) { "#{string}&hashkey=01c3c27304a2ccca73e85bd23fa2023844c81243" }
+
+      before do
+        allow(instance).to receive(:timestamp).and_return(timestamp)
+      end
+
+      it 'returns a valid result string' do
+        expect(subject).to eq(result_string)
+      end
+
+      it 'sends string for hash calculation' do
+        expect(Fyber::Cryptography::HashKey).to receive(:calculate).with(string)
+        subject
+      end
     end
 
-    it 'returns a valid result string' do
-      expect(subject).to eq(result_string)
+    context 'when uid is nil' do
+      let(:uid) { nil }
+
+      it 'returns nil' do
+        expect(subject).to be_nil
+      end
     end
 
-    it 'sends string for hash calculation' do
-      expect(Fyber::Cryptography::HashKey).to receive(:calculate).with(string)
-      subject
+    context 'when uid is empty' do
+      let(:uid) { '' }
+
+      it 'returns nil' do
+        expect(subject).to be_nil
+      end
+    end
+
+    context 'when pub0 is nil' do
+      let(:pub0) { nil }
+
+      it 'returns nil' do
+        expect(subject).to be_nil
+      end
+    end
+
+    context 'when pub0 is empty' do
+      let(:pub0) { '' }
+
+      it 'returns nil' do
+        expect(subject).to be_nil
+      end
+    end
+
+    context 'when page is nil' do
+      let(:pub0) { nil }
+
+      it 'returns nil' do
+        expect(subject).to be_nil
+      end
     end
   end
 end

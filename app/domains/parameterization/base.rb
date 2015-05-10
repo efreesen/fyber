@@ -17,6 +17,8 @@ module Fyber
       end
 
       def generate
+        return unless parameters_present?
+
         result_string = "appid=#{appid}"
         result_string += "&device_id=#{device_id}"
         result_string += "&ip=#{ip}"
@@ -33,6 +35,15 @@ module Fyber
 
       private
       attr_accessor :uid, :pub0, :page
+
+      def parameters_present?
+        present?(uid) && present?(pub0) && present?(page)
+      end
+
+      def present?(attribute)
+        result = attribute.nil?
+        result ||= attribute.size > 0 if attribute.respond_to? :size
+      end
 
       def timestamp
         Time.now.to_i

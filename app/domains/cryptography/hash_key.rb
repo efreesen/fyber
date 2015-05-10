@@ -16,6 +16,7 @@ module Fyber
       end
 
       def calculate
+        return unless string && string.size > 0
         Digest::SHA1.hexdigest(string).downcase
       end
 

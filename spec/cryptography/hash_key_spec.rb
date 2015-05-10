@@ -26,8 +26,26 @@ describe Fyber::Cryptography::HashKey do
   describe '#calculate' do
     subject { instance.calculate }
 
-    it 'returns the calculated hash' do
-      expect(subject).to eq('01c3c27304a2ccca73e85bd23fa2023844c81243')
+    context 'when string is present' do
+      it 'returns the calculated hash' do
+        expect(subject).to eq('01c3c27304a2ccca73e85bd23fa2023844c81243')
+      end
+    end
+
+    context 'when string is nil' do
+      let(:string) { nil }
+
+      it 'returns nil' do
+        expect(subject).to be_nil
+      end
+    end
+
+    context 'when string is empty' do
+      let(:string) { '' }
+
+      it 'returns nil' do
+        expect(subject).to be_nil
+      end
     end
   end
 end
