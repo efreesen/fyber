@@ -31,3 +31,5 @@ gem 'padrino', '0.12.5'
 
 gem 'rspec', '3.2.0'
 gem 'pry-meta', '0.0.10'
+gem 'settingslogic', '2.0.9'
+gem 'environments'
