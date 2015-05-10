@@ -1,12 +1,14 @@
 module Fyber
   module Parameterization
     class Base
-      def initialize(hash={})
-        @hash = hash
+      def initialize(uid, pub0, page)
+        @uid  = uid
+        @pub0 = pub0
+        @page = page
       end
 
-      def self.generate(hash)
-        instance = self.new(hash)
+      def self.generate(uid, pub0, page)
+        instance = self.new(uid, pub0, page)
 
         instance.generate
       end

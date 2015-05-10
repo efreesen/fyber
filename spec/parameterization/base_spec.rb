@@ -2,17 +2,20 @@ require './app/domains/parameterization/base'
 
 describe Fyber::Parameterization::Base do
   describe '.generate' do
-    let(:hash) { {} }
-    let(:instance) { described_class.new(hash) }
+    let(:uid) { 'efreesen' }
+    let(:pub0) { 'my_campaign' }
+    let(:page) { 6 }
 
-    subject { described_class.generate(hash) }
+    let(:instance) { described_class.new(uid, pub0, page) }
+
+    subject { described_class.generate(uid, pub0, page) }
 
     before do
-      allow(described_class).to receive(:new).with(hash).and_return(instance)
+      allow(described_class).to receive(:new).with(uid, pub0, page).and_return(instance)
     end
 
     it 'initializes an instance' do
-      expect(described_class).to receive(:new).with(hash).and_call_original
+      expect(described_class).to receive(:new).with(uid, pub0, page).and_call_original
 
       subject
     end
