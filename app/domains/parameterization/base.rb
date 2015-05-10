@@ -1,3 +1,4 @@
+require './app/domains/cryptography/hash_key'
 require './app/settings'
 
 module Fyber
@@ -65,7 +66,7 @@ module Fyber
       end
 
       def hashkey(string)
-        '7a2b1604c03d46eec1ecd4a686787b75dd693c4d'
+        Fyber::Cryptography::HashKey.calculate(string)
       end
     end
   end
