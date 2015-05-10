@@ -1,3 +1,5 @@
+require 'digest/sha1'
+
 require './app/settings'
 
 module Fyber
@@ -14,12 +16,11 @@ module Fyber
       end
 
       def calculate
-        '7a2b1604c03d46eec1ecd4a686787b75dd693c4d'
+        Digest::SHA1.hexdigest(string).downcase
       end
 
       private
       attr_accessor :string
-
     end
   end
 end

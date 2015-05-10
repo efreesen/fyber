@@ -27,6 +27,7 @@ module Fyber
         result_string += "&pub0=#{pub0}"
         result_string += "&timestamp=#{timestamp}"
         result_string += "&uid=#{uid}"
+        result_string += "&#{api_key}"
         result_string += "&hashkey=#{hashkey(result_string)}"
       end
 
@@ -63,6 +64,10 @@ module Fyber
 
       def offer_types
         Settings.fyber.offer_types
+      end
+
+      def api_key
+        Settings.fyber.api_key
       end
 
       def hashkey(string)
