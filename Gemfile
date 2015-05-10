@@ -28,3 +28,6 @@ gem 'padrino', '0.12.5'
 # %w(core support gen helpers cache mailer admin).each do |g|
 #   gem 'padrino-' + g, '0.12.5'
 # end
+
+gem 'rspec', '3.2.0'
+gem 'pry-meta', '0.0.10'
