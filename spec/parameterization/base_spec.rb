@@ -8,7 +8,6 @@ describe Fyber::Parameterization::Base do
   let(:instance) { described_class.new(uid, pub0, page) }
 
   describe '.generate' do
-
     subject { described_class.generate(uid, pub0, page) }
 
     before do
