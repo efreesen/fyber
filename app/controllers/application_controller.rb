@@ -13,7 +13,7 @@ Fyber::App.controller do
     @result = Fyber::Integration::OfferAPIAdapter.request(uid, pub0, page)
 
     if @result.is_a? Array
-      erb :list_offers
+      erb :offers_list
     else
       @result
     end
