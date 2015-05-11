@@ -50,35 +50,35 @@ module Fyber
       end
 
       def appid
-        Settings.fyber.appid
+        Settings.fyber.parameters.appid
       end
 
       def format
-        Settings.fyber.format
+        Settings.fyber.parameters.format
       end
 
       def device_id
-        Settings.fyber.device_id
+        Settings.fyber.parameters.device_id
       end
 
       def ip
-        Settings.fyber.ip
+        Settings.fyber.parameters.ip
       end
 
       def locale
-        Settings.fyber.locale
+        Settings.fyber.parameters.locale
       end
 
       def ps_time
-        Settings.fyber.ps_time
+        Settings.fyber.parameters.ps_time
       end
 
       def offer_types
-        Settings.fyber.offer_types
+        Settings.fyber.parameters.offer_types
       end
 
       def api_key
-        Settings.fyber.api_key
+        Settings.fyber.parameters.api_key
       end
 
       def hashkey(string)

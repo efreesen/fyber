@@ -1,35 +1,17 @@
 source 'https://rubygems.org'
 
-# Distribute your app as a gem
-# gemspec
-
-# Server requirements
-# gem 'thin' # or mongrel
-# gem 'trinidad', :platform => 'jruby'
-
-# Optional JSON codec (faster performance)
-# gem 'oj'
-
-# Project requirements
-gem 'rake'
-
-# Component requirements
-gem 'slim'
-
-# Test requirements
-
-# Padrino Stable Gem
+gem 'rake', '10.4.2'
 gem 'padrino', '0.12.5'
-
-# Or Padrino Edge
-# gem 'padrino', :github => 'padrino/padrino-framework'
-
-# Or Individual Gems
-# %w(core support gen helpers cache mailer admin).each do |g|
-#   gem 'padrino-' + g, '0.12.5'
-# end
-
-gem 'rspec', '3.2.0'
-gem 'pry-meta', '0.0.10'
 gem 'settingslogic', '2.0.9'
-gem 'environments'
+gem 'environments', '0.0.1'
+gem 'httparty', '0.13.3'
+
+group :test, :development do
+  gem 'pry-meta', '0.0.10'
+end
+
+group :test do
+  gem 'rspec', '3.2.0'
+  gem 'vcr', '2.9.3'
+  gem 'webmock', '1.21.0'
+end
