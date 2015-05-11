@@ -34,13 +34,13 @@ module Fyber
       end
 
       def query_string(apikey)
-        @parameters = Hash[parameters.sort]
+        sorted_parameters = Hash[parameters.sort]
 
-        query = Rack::Utils.build_query(parameters)
+        query = Rack::Utils.build_query(sorted_parameters)
 
-        query += "&#{apikey}"
+        string_for_hash = "#{query}&#{apikey}"
 
-        query += "&hashkey=#{hashkey(query)}"
+        query += "&hashkey=#{hashkey(string_for_hash)}"
       end
 
       def parameters_present?
@@ -54,38 +54,6 @@ module Fyber
 
       def timestamp
         Time.now.to_i
-      end
-
-      def appid
-        Settings.fyber.parameters.appid
-      end
-
-      def format
-        Settings.fyber.parameters.format
-      end
-
-      def device_id
-        Settings.fyber.parameters.device_id
-      end
-
-      def ip
-        Settings.fyber.parameters.ip
-      end
-
-      def locale
-        Settings.fyber.parameters.locale
-      end
-
-      def ps_time
-        Settings.fyber.parameters.ps_time
-      end
-
-      def offer_types
-        Settings.fyber.parameters.offer_types
-      end
-
-      def api_key
-        Settings.fyber.parameters.api_key
       end
 
       def hashkey(string)

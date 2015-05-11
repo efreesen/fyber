@@ -31,7 +31,8 @@ describe Fyber::Parameterization::Base do
 
     context 'when all parameters are present' do
       let(:timestamp) { '1312553361' }
-      let(:string) { 'appid=157&device_id=2b6f0cc904d137be2e1730235f5664094b83&format=json&ip=109.235.143.113&locale=de&offer_types=112&page=6&ps_time=1312211903&pub0=my_campaign&timestamp=1312553361&uid=efreesen&b07a12df7d52e6c118e5d47d3f9e60135b109a1f' }
+      let(:string) { 'appid=157&device_id=2b6f0cc904d137be2e1730235f5664094b83&format=json&ip=109.235.143.113&locale=de&offer_types=112&page=6&ps_time=1312211903&pub0=my_campaign&timestamp=1312553361&uid=efreesen' }
+      let(:string_for_hash) { "#{string}&b07a12df7d52e6c118e5d47d3f9e60135b109a1f" }
       let(:result_string) { "#{string}&hashkey=d0e55abd56fe46dda4e141684654e242fe118139" }
 
       before do
@@ -43,7 +44,7 @@ describe Fyber::Parameterization::Base do
       end
 
       it 'sends string for hash calculation' do
-        expect(Fyber::Cryptography::HashKey).to receive(:calculate).with(string)
+        expect(Fyber::Cryptography::HashKey).to receive(:calculate).with(string_for_hash)
         subject
       end
     end
