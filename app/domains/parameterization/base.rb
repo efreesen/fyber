@@ -1,3 +1,5 @@
+require 'rack'
+
 require './app/domains/cryptography/hash_key'
 require './app/settings'
 
@@ -19,22 +21,27 @@ module Fyber
       def generate
         return unless parameters_present?
 
-        result_string = "appid=#{appid}"
-        result_string += "&device_id=#{device_id}"
-        result_string += "&ip=#{ip}"
-        result_string += "&locale=#{locale}"
-        result_string += "&offer_types=#{offer_types}"
-        result_string += "&page=#{page}"
-        result_string += "&ps_time=#{ps_time}"
-        result_string += "&pub0=#{pub0}"
-        result_string += "&timestamp=#{timestamp}"
-        result_string += "&uid=#{uid}"
-        result_string += "&#{api_key}"
-        result_string += "&hashkey=#{hashkey(result_string)}"
+        apikey = parameters.delete("api_key")
+
+        query_string(apikey)
       end
 
       private
-      attr_accessor :uid, :pub0, :page
+      attr_accessor :uid, :pub0, :page, :parameters
+
+      def parameters
+        @parameters ||= Settings.fyber.parameters.dup.merge!("uid" => uid, "pub0" => pub0, "page" => page, "timestamp" => timestamp)
+      end
+
+      def query_string(apikey)
+        @parameters = Hash[parameters.sort]
+
+        query = Rack::Utils.build_query(parameters)
+
+        query += "&#{apikey}"
+
+        query += "&hashkey=#{hashkey(query)}"
+      end
 
       def parameters_present?
         present?(uid) && present?(pub0) && present?(page)
