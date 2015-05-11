@@ -31,6 +31,8 @@ describe Fyber::Integration::OfferAPIAdapter do
   end
 
   describe '#request' do
+    subject { instance.request }
+
     context 'when parameters are present' do
       context 'and request returns results' do
         let(:result_array) do
@@ -89,19 +91,43 @@ describe Fyber::Integration::OfferAPIAdapter do
       end
     end
 
-    xcontext 'when string is nil' do
-      let(:string) { nil }
+    context 'when uid is nil' do
+      let(:uid) { nil }
 
-      it 'returns nil' do
-        expect(subject).to be_nil
+      it 'returns an error message' do
+        expect(subject).to eq 'uid must be passed.'
       end
     end
 
-    xcontext 'when string is empty' do
-      let(:string) { '' }
+    context 'when uid is empty' do
+      let(:uid) { '' }
 
-      it 'returns nil' do
-        expect(subject).to be_nil
+      it 'returns an error message' do
+        expect(subject).to eq 'uid must be passed.'
+      end
+    end
+
+    context 'when pub0 is nil' do
+      let(:pub0) { nil }
+
+      it 'returns an error message' do
+        expect(subject).to eq 'pub0 must be passed.'
+      end
+    end
+
+    context 'when pub0 is empty' do
+      let(:pub0) { '' }
+
+      it 'returns an error message' do
+        expect(subject).to eq 'pub0 must be passed.'
+      end
+    end
+
+    context 'when page is nil' do
+      let(:page) { nil }
+
+      it 'returns an error message' do
+        expect(subject).to eq 'page must be passed.'
       end
     end
   end

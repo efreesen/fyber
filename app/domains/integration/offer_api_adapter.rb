@@ -6,6 +6,8 @@ module Fyber
     class OfferAPIAdapter
       def initialize(uid, pub0, page)
         @query_string  = Fyber::Parameterization::Base.generate(uid, pub0, page)
+
+        @message = error_message(uid, pub0, page) unless query_string
       end
 
       def self.request(uid, pub0, page)
@@ -15,6 +17,8 @@ module Fyber
       end
 
       def request
+        return message if message
+
         response = HTTParty.get(url)
 
         @body = JSON.parse(response.body)
@@ -27,7 +31,13 @@ module Fyber
       end
 
       private
-      attr_accessor :body, :query_string
+      attr_accessor :body, :message, :query_string
+
+      def error_message(uid, pub0, page)
+        return "uid must be passed." if uid.nil? || uid.size == 0
+        return "pub0 must be passed." if pub0.nil? || pub0.size == 0
+        return "page must be passed." if page.nil?
+      end
 
       def render_response
         if body["code"] == "NO_CONTENT"
